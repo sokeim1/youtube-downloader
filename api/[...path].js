@@ -10,7 +10,19 @@ module.exports = async function handler(req, res) {
   const url = new URL(req.url, 'http://localhost');
   const upstream = new URL(url.pathname + url.search, base);
 
+  // IMPORTANT: avoid proxying large binary responses through Vercel (limits).
+  // Redirect downloads/thumbnails directly to the backend.
   const method = req.method || 'GET';
+  if (method === 'GET' && url.pathname.startsWith('/api/')) {
+    const p = url.pathname;
+    if (p === '/api/download' || p === '/api/thumbnail' || p === '/api/thumbnail-view') {
+      res.statusCode = 302;
+      res.setHeader('Location', upstream.toString());
+      res.end();
+      return;
+    }
+  }
+
   const headers = { ...req.headers };
   delete headers.host;
 

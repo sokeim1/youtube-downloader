@@ -36,7 +36,13 @@ function setError(text) {
     errorBox.textContent = '';
     return;
   }
-  errorBox.textContent = text;
+  const s = String(text);
+  if (s.includes('BACKEND_BASE_URL is not set')) {
+    errorBox.textContent =
+      'Сервер скачивания не настроен. Для Vercel нужно указать переменную BACKEND_BASE_URL (адрес твоего backend с yt-dlp/ffmpeg).';
+  } else {
+    errorBox.textContent = s;
+  }
   errorBox.classList.remove('hidden');
 }
 
