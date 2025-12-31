@@ -1,12 +1,14 @@
-FROM node:20-bookworm-slim
+FROM node:20-bookworm
 
 ENV NODE_ENV=production
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends ffmpeg python3 python3-pip ca-certificates \
-    && pip3 install --no-cache-dir yt-dlp \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends ffmpeg ca-certificates curl; \
+    rm -rf /var/lib/apt/lists/*; \
+    curl -L "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp" -o /usr/local/bin/yt-dlp; \
+    chmod a+rx /usr/local/bin/yt-dlp; \
+    yt-dlp --version
 
 WORKDIR /app
 
