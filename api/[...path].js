@@ -37,6 +37,9 @@ module.exports = async function handler(req, res) {
 
   const headers = { ...req.headers };
   delete headers.host;
+  // Avoid double-decompression issues when proxying through Vercel.
+  // Force upstream to return uncompressed payload.
+  headers['accept-encoding'] = 'identity';
 
   let body = undefined;
   if (method !== 'GET' && method !== 'HEAD') {
@@ -58,6 +61,8 @@ module.exports = async function handler(req, res) {
   res.statusCode = r.status;
   r.headers.forEach((v, k) => {
     if (k.toLowerCase() === 'transfer-encoding') return;
+    if (k.toLowerCase() === 'content-encoding') return;
+    if (k.toLowerCase() === 'content-length') return;
     res.setHeader(k, v);
   });
 
