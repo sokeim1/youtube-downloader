@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Downloader — Reels / TikTok / Shorts</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bg"></div>
+    <div class="snow"></div>
+
+    <div class="app">
+      <header class="header">
+        <div class="brand">
+          <div id="logoBtn" class="logo">VD</div>
+          <div class="brandText">
+            <div class="brandTitle">Video Downloader</div>
+            <div class="brandSub">Reels · TikTok · Shorts · и другое</div>
+          </div>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="heroTitle">УСТАНОВИ YouTube Download на ПК</div>
+        <div class="heroSub">Скачай установщик Windows и пользуйся приложением без браузера.</div>
+        <a class="btn btnPrimary btnBig" href="/download/windows">Скачать для Windows</a>
+        <div id="installerMsg" class="installerMsg hidden">Установщик не найден на сервере. Нужно либо держать файл в installer\Output (на сервере), либо указать INSTALLER_URL на ссылку, где лежит Setup.exe.</div>
+      </section>
+
+      <main class="card cardCenter">
+        <div class="row">
+          <label class="label" for="url">Ссылка на видео</label>
+          <div class="inputWrap">
+            <input id="url" class="input" placeholder="Вставь ссылку (Instagram / TikTok / YouTube Shorts...)" />
+            <button id="analyze" class="btn btnPrimary">Скачать</button>
+          </div>
+        </div>
+
+        <section id="result" class="result hidden">
+          <div class="meta">
+            <div class="metaLeft">
+              <div id="title" class="title"></div>
+              <div class="metaRow">
+                <span class="tag" id="extractor"></span>
+                <a id="openSource" class="link" target="_blank" rel="noreferrer">открыть источник</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="panel">
+              <div class="panelTitle">Качество</div>
+              <div id="qualities" class="qualityGrid"></div>
+              <div class="hint">Видео скачивается как MP4 с аудио (через ffmpeg), чтобы нормально открывалось в Windows.</div>
+            </div>
+
+            <div class="panel">
+              <div class="panelTitle">Предпросмотр</div>
+              <div class="preview">
+                <img id="thumbImg" alt="preview" />
+                <div class="previewGlow"></div>
+              </div>
+              <div class="panelFooter">
+                <button id="downloadConfirm" class="btn btnPrimary" disabled>Скачать выбранное?</button>
+                <button id="downloadThumb" class="btn">Скачать превью</button>
+                <div id="status" class="status"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="error" class="error hidden"></section>
+      </main>
+
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
