@@ -1,5 +1,18 @@
 module.exports = async function handler(req, res) {
   const base = process.env.BACKEND_BASE_URL;
+
+  const url = new URL(req.url, 'http://localhost');
+  if (url.pathname === '/api/_env') {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    let origin = null;
+    try {
+      if (base) origin = new URL(base).origin;
+    } catch {}
+    res.end(JSON.stringify({ backendConfigured: !!base, backendOrigin: origin }));
+    return;
+  }
+
   if (!base) {
     res.statusCode = 500;
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -7,7 +20,6 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  const url = new URL(req.url, 'http://localhost');
   const upstream = new URL(url.pathname + url.search, base);
 
   // IMPORTANT: avoid proxying large binary responses through Vercel (limits).
