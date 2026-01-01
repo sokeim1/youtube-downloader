@@ -17,6 +17,7 @@
 
 *{box-sizing:border-box}
 html,body{height:100%}
+html{scroll-behavior:smooth}
 body{
   margin:0;
   font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
@@ -26,6 +27,7 @@ body{
     radial-gradient(800px 520px at 80% 10%, rgba(155,92,255,.14), transparent 62%),
     linear-gradient(180deg, #040407, #07060b 55%, #05050a);
   overflow-x:hidden;
+  scroll-snap-type:y proximity;
 }
 
 .bg{
@@ -106,8 +108,11 @@ body{
   align-items:center;
   text-align:center;
   gap:10px;
-  margin:18px auto 18px;
+  margin:0 auto 18px;
   max-width:900px;
+  min-height:calc(100vh - 90px);
+  justify-content:center;
+  scroll-snap-align:start;
 }
 
 .heroTitle{
@@ -120,6 +125,60 @@ body{
 .heroSub{
   color:var(--muted);
   font-size:14px;
+}
+
+.scrollHint{
+  margin-top:14px;
+  color:var(--muted2);
+  font-size:12.5px;
+}
+
+.scrollDown{
+  margin-top:18px;
+  width:44px;
+  height:64px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.14);
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding-top:10px;
+  text-decoration:none;
+  box-shadow:0 18px 60px rgba(0,0,0,.35);
+}
+
+.scrollDownDot{
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background:rgba(155,92,255,.95);
+  box-shadow:0 0 0 4px rgba(155,92,255,.18);
+  animation:scrollDot 1.35s ease-in-out infinite;
+}
+
+@keyframes scrollDot{
+  0%{transform:translateY(0);opacity:.85}
+  60%{transform:translateY(22px);opacity:.25}
+  100%{transform:translateY(0);opacity:.85}
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .55s ease, transform .55s ease;
+  transition-delay:var(--delay, 0ms);
+}
+
+.reveal.in-view{
+  opacity:1;
+  transform:translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .scrollDownDot{animation:none}
+  .reveal{opacity:1;transform:none;transition:none}
 }
 
 .btnBig{
@@ -146,6 +205,60 @@ body{
   max-width:900px;
   margin:0 auto;
 }
+
+.screens{max-width:980px;margin:0 auto;padding:0 0 40px}
+
+.screen{
+  min-height:calc(100vh - 90px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:48px 18px;
+  scroll-snap-align:start;
+}
+
+.sectionCard{
+  width:100%;
+  max-width:980px;
+  padding:28px;
+  border-radius:26px;
+  background:linear-gradient(180deg, rgba(15,10,30,.86), rgba(12,8,22,.74));
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 26px 110px rgba(0,0,0,.55);
+}
+
+.section{margin-top:18px}
+.sectionTitle{font-weight:950;font-size:22px;margin-bottom:16px;letter-spacing:-0.01em}
+.sectionNote{color:var(--muted2);font-size:13px;margin-top:10px}
+
+.featureGrid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:12px;
+}
+@media (max-width: 920px){.featureGrid{grid-template-columns:1fr}}
+
+.feature{
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:22px;
+  background:linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.08));
+  padding:18px;
+  box-shadow:0 18px 70px rgba(0,0,0,.25);
+}
+.featureTitle{font-weight:950;margin-bottom:8px;font-size:16px}
+.featureText{color:var(--muted2);font-size:13.5px;line-height:1.45}
+
+.steps{display:flex;flex-direction:column;gap:12px}
+.step{display:flex;gap:12px;align-items:center;border:1px solid rgba(255,255,255,.10);border-radius:22px;background:linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.08));padding:16px}
+.stepNum{width:28px;height:28px;border-radius:10px;display:grid;place-items:center;background:rgba(155,92,255,.20);border:1px solid rgba(155,92,255,.35);font-weight:900}
+.stepText{color:var(--muted);font-size:13.5px}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{padding:9px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.08));color:var(--text);font-weight:900;font-size:12px}
+
+.shotGrid{display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:12px}
+@media (max-width: 920px){.shotGrid{grid-template-columns:1fr}}
+.shot{border:1px dashed rgba(255,255,255,.24);border-radius:22px;background:linear-gradient(180deg, rgba(0,0,0,.16), rgba(0,0,0,.06));padding:26px;min-height:170px;display:grid;place-items:center;color:var(--muted);font-weight:900}
 
 @media (max-width: 700px){
   .heroTitle{font-size:34px}

@@ -84,8 +84,42 @@ function setCachedAnalyze(url, data) {
 
  const YT_DLP_BIN = process.env.YT_DLP_PATH || findYtDlpOnWindows() || 'yt-dlp';
 
+ let _cookiesFileCache = undefined;
+
+ function resolveCookiesFile() {
+   if (_cookiesFileCache !== undefined) return _cookiesFileCache;
+
+   try {
+     const fp = process.env.YT_DLP_COOKIES_FILE;
+     if (fp && fs.existsSync(fp)) {
+       _cookiesFileCache = fp;
+       return _cookiesFileCache;
+     }
+   } catch {}
+
+   try {
+     const b64 = process.env.YT_DLP_COOKIES_B64;
+     if (b64 && typeof b64 === 'string') {
+       const out = path.join(os.tmpdir(), 'vd_cookies.txt');
+       const buf = Buffer.from(b64, 'base64');
+       fs.writeFileSync(out, buf, { encoding: 'utf8', mode: 0o600 });
+       _cookiesFileCache = out;
+       return _cookiesFileCache;
+     }
+   } catch {}
+
+   _cookiesFileCache = null;
+   return _cookiesFileCache;
+ }
+
  function spawnYtDlp(args, spawnOpts = {}) {
-   return spawn(YT_DLP_BIN, args, { windowsHide: true, ...spawnOpts });
+   const cookiesFile = resolveCookiesFile();
+   const fullArgs = [];
+   if (cookiesFile) {
+     fullArgs.push('--cookies', cookiesFile);
+   }
+   fullArgs.push(...args);
+   return spawn(YT_DLP_BIN, fullArgs, { windowsHide: true, ...spawnOpts });
  }
 
 function runYtDlp(args, { timeoutMs = 0 } = {}) {

@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Скачать видео с YouTube, TikTok, Reels, Shorts — YouTube Download</title>
-    <meta name="description" content="Скачивай видео и аудио (MP4/MP3) с YouTube, TikTok, Instagram Reels и Shorts. Выбор качества, предпросмотр и быстрая загрузка." />
-    <meta name="keywords" content="скачать видео, youtube downloader, скачать с ютуба, tiktok downloader, reels downloader, shorts downloader, mp4, mp3" />
+    <title>Установи YouTube Download на ПК — Video Downloader</title>
+    <meta name="description" content="Скачай приложение YouTube Download для Windows. Удобные загрузки видео/аудио, выбор качества, список загрузок и быстрые действия." />
+    <meta name="keywords" content="youtube download на пк, скачать приложение, video downloader windows, tiktok reels shorts twitch" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Скачать видео с YouTube, TikTok, Reels, Shorts — YouTube Download" />
-    <meta property="og:description" content="Скачивай видео и аудио (MP4/MP3) с YouTube, TikTok, Instagram Reels и Shorts. Выбор качества, предпросмотр и быстрая загрузка." />
+    <meta property="og:title" content="Установи YouTube Download на ПК — Video Downloader" />
+    <meta property="og:description" content="Скачай приложение YouTube Download для Windows. Удобные загрузки видео/аудио, выбор качества, список загрузок и быстрые действия." />
 
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Скачать видео с YouTube, TikTok, Reels, Shorts — YouTube Download" />
-    <meta name="twitter:description" content="Скачивай видео и аудио (MP4/MP3) с YouTube, TikTok, Instagram Reels и Shorts. Выбор качества, предпросмотр и быстрая загрузка." />
+    <meta name="twitter:title" content="Установи YouTube Download на ПК — Video Downloader" />
+    <meta name="twitter:description" content="Скачай приложение YouTube Download для Windows. Удобные загрузки видео/аудио, выбор качества, список загрузок и быстрые действия." />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
@@ -32,55 +32,72 @@
       </header>
 
       <section class="hero">
-        <div class="heroTitle">УСТАНОВИ YouTube Download на ПК</div>
-        <div class="heroSub">Скачай установщик Windows и пользуйся приложением без браузера.</div>
+        <div class="heroTitle">СКАЧАТЬ ПРИЛОЖЕНИЕ</div>
+        <div class="heroSub">YouTube Download для Windows — быстрые загрузки, удобный интерфейс и список скачиваний.</div>
         <a class="btn btnPrimary btnBig" href="/download/windows">Скачать для Windows</a>
         <div id="installerMsg" class="installerMsg hidden">Установщик не найден на сервере. Нужно либо держать файл в installer\Output (на сервере), либо указать INSTALLER_URL на ссылку, где лежит Setup.exe.</div>
+        <div class="scrollHint">Листай вниз — там всё про приложение</div>
+        <a class="scrollDown" href="#why" aria-label="Прокрутить вниз">
+          <span class="scrollDownDot"></span>
+        </a>
       </section>
 
-      <main class="card cardCenter">
-        <div class="row">
-          <label class="label" for="url">Ссылка на видео</label>
-          <div class="inputWrap">
-            <input id="url" class="input" placeholder="Вставь ссылку (Instagram / TikTok / YouTube Shorts...)" />
-            <button id="analyze" class="btn btnPrimary">Скачать</button>
-          </div>
-        </div>
-
-        <section id="result" class="result hidden">
-          <div class="meta">
-            <div class="metaLeft">
-              <div id="title" class="title"></div>
-              <div class="metaRow">
-                <span class="tag" id="extractor"></span>
-                <a id="openSource" class="link" target="_blank" rel="noreferrer">открыть источник</a>
+      <main id="info" class="screens">
+        <section id="why" class="screen reveal" style="--delay: 0ms;">
+          <div class="card sectionCard">
+            <div class="sectionTitle">Почему именно мы</div>
+            <div class="featureGrid">
+              <div class="feature">
+                <div class="featureTitle">Быстрая загрузка</div>
+                <div class="featureText">Скачивание идёт напрямую через приложение — быстро и стабильно.</div>
               </div>
-            </div>
-          </div>
-
-          <div class="grid">
-            <div class="panel">
-              <div class="panelTitle">Качество</div>
-              <div id="qualities" class="qualityGrid"></div>
-              <div class="hint">Видео скачивается как MP4 с аудио (через ffmpeg), чтобы нормально открывалось в Windows.</div>
-            </div>
-
-            <div class="panel">
-              <div class="panelTitle">Предпросмотр</div>
-              <div class="preview">
-                <img id="thumbImg" alt="preview" />
-                <div class="previewGlow"></div>
+              <div class="feature">
+                <div class="featureTitle">Отличный дизайн</div>
+                <div class="featureText">Простой интерфейс без лишнего — вставил ссылку, выбрал качество, скачал.</div>
               </div>
-              <div class="panelFooter">
-                <button id="downloadConfirm" class="btn btnPrimary" disabled>Скачать выбранное?</button>
-                <button id="downloadThumb" class="btn">Скачать превью</button>
-                <div id="status" class="status"></div>
+              <div class="feature">
+                <div class="featureTitle">Удобные действия</div>
+                <div class="featureText">Показать файл в папке, копировать ссылку, открыть в браузере — всё в один клик.</div>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="error" class="error hidden"></section>
+        <section id="how" class="screen reveal" style="--delay: 60ms;">
+          <div class="card sectionCard">
+            <div class="sectionTitle">Как это работает</div>
+            <div class="steps">
+              <div class="step"><div class="stepNum">1</div><div class="stepText">Скачай и установи приложение.</div></div>
+              <div class="step"><div class="stepNum">2</div><div class="stepText">Вставь ссылку на видео.</div></div>
+              <div class="step"><div class="stepNum">3</div><div class="stepText">Выбери качество и нажми скачать.</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="sites" class="screen reveal" style="--delay: 120ms;">
+          <div class="card sectionCard">
+            <div class="sectionTitle">Поддерживаемые сайты</div>
+            <div class="chips">
+              <div class="chip">YouTube</div>
+              <div class="chip">TikTok</div>
+              <div class="chip">Instagram Reels</div>
+              <div class="chip">YouTube Shorts</div>
+              <div class="chip">Twitch</div>
+            </div>
+            <div class="sectionNote">Если ссылка поддерживается yt-dlp — приложение обычно сможет скачать.</div>
+          </div>
+        </section>
+
+        <section id="shots" class="screen reveal" style="--delay: 180ms;">
+          <div class="card sectionCard">
+            <div class="sectionTitle">Скриншоты</div>
+            <div class="shotGrid">
+              <div class="shot">Тут должны быть фото</div>
+              <div class="shot">Тут должны быть фото</div>
+              <div class="shot">Тут должны быть фото</div>
+            </div>
+          </div>
+        </section>
       </main>
 
     </div>
