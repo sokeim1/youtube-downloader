@@ -2,6 +2,7 @@
 #define MyAppVersion "1.0.4"
 #define MyAppPublisher "Video Downloader"
 #define MyAppExeName "VideoDownloader.exe"
+#define MyUpdateFeedUrl "https://YOUR_DOMAIN/latest.json"
 
 [Setup]
 AppId={{6C3DAEA7-1D00-4F1A-9C8E-7F5A0DA50C84}
@@ -39,4 +40,19 @@ Name: "startmenuicon"; Description: "Создать значок в меню П�
 
 [Run]
 Filename: "{app}\\{#MyAppExeName}"; Description: "Запустить {#MyAppName}"; Flags: nowait postinstall skipifsilent
+
+[Code]
+procedure CurStepChanged(CurStep: TSetupStep);
+var
+  Path: string;
+begin
+  if CurStep = ssInstall then
+  begin
+    Path := ExpandConstant('{app}\\update-url.txt');
+    if not FileExists(Path) then
+    begin
+      SaveStringToFile(Path, '{#MyUpdateFeedUrl}', False);
+    end;
+  end;
+end;
 
