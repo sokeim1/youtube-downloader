@@ -1,5 +1,7 @@
 #define MyAppName "Video Downloader"
-#define MyAppVersion "1.0.4"
+#ifndef MyAppVersion
+  #define MyAppVersion "0.0.0"
+#endif
 #define MyAppPublisher "Video Downloader"
 #define MyAppExeName "VideoDownloader.exe"
 #define MyUpdateFeedUrl "https://youtube-downloader-nine-xi.vercel.app/latest.json"

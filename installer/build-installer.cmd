@@ -1,5 +1,5 @@
 @echo off
-setlocal
+setlocal EnableExtensions DisableDelayedExpansion
 
 chcp 65001 >nul
 
@@ -50,44 +50,15 @@ if errorlevel 1 (
 )
 
 rem 2) Build publish output
-echo [1/2] Publishing app...
-dotnet publish "%~dp0..\desktop\VideoDownloader.App\VideoDownloader.App.csproj" -c Release -r win-x64 --self-contained false
+echo [1/2] Building installer...
+if "%~1"=="" (
+  powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0build-installer.ps1"
+) else (
+  powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0build-installer.ps1" -OverrideVersion "%~1"
+)
 if errorlevel 1 (
   echo.
-  echo ERROR: dotnet publish failed
-  echo.
-  pause
-  exit /b 1
-)
-
-rem 2) Find Inno Setup compiler (ISCC.exe)
-set "ISCC="
-for %%G in (iscc.exe) do set "ISCC=%%~$PATH:G"
-
-rem Allow overriding via env var
-if not defined ISCC if defined ISCC_EXE set "ISCC=%ISCC_EXE%"
-
-rem Try registry (Inno Setup 6)
-if not defined ISCC for /f "tokens=2,*" %%A in ('reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Inno Setup 6_is1" /v InstallLocation 2^>nul ^| find /i "InstallLocation"') do if exist "%%BISCC.exe" set "ISCC=%%BISCC.exe"
-if not defined ISCC for /f "tokens=2,*" %%A in ('reg query "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Inno Setup 6_is1" /v InstallLocation 2^>nul ^| find /i "InstallLocation"') do if exist "%%BISCC.exe" set "ISCC=%%BISCC.exe"
-
-if not defined ISCC if exist "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" set "ISCC=C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
-if not defined ISCC if exist "C:\Program Files\Inno Setup 6\ISCC.exe" set "ISCC=C:\Program Files\Inno Setup 6\ISCC.exe"
-
-if not defined ISCC (
-  echo.
-  echo ERROR: Inno Setup не найден.
-  echo Установи Inno Setup 6: https://jrsoftware.org/isinfo.php
-  echo.
-  pause
-  exit /b 1
-)
-
-echo [2/2] Building installer...
-"%ISCC%" "%~dp0VideoDownloader.iss"
-if errorlevel 1 (
-  echo.
-  echo ERROR: ISCC failed
+  echo ERROR: Installer build failed
   echo.
   pause
   exit /b 1
