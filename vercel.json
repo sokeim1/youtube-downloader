@@ -6,6 +6,7 @@
     { "src": "public/**", "use": "@vercel/static" }
   ],
   "routes": [
+    { "src": "/screenshots/(.*)", "dest": "/api/screenshots.js" },
     { "src": "/download/windows", "dest": "/api/download-windows.js" },
     { "src": "/api/(.*)", "dest": "/api/[...path].js" },
     { "handle": "filesystem" },

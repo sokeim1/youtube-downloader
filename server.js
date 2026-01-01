@@ -13,6 +13,27 @@ app.use(express.json({ limit: '1mb' }));
 const PUBLIC_DIR = path.join(__dirname, 'public');
 app.use(express.static(PUBLIC_DIR));
 
+app.get('/screenshots/:name', (req, res) => {
+  try {
+    const name = String(req.params.name || '').toLowerCase();
+    const map = {
+      'app-1.png': 'Screenshot_1.png',
+      'app-2.png': 'Screenshot_5.png',
+    };
+    const src = map[name];
+    if (!src) return res.status(404).end('not found');
+
+    const fp = path.join(__dirname, src);
+    if (!fs.existsSync(fp)) return res.status(404).end('not found');
+
+    res.setHeader('Content-Type', 'image/png');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    fs.createReadStream(fp).pipe(res);
+  } catch (e) {
+    res.status(500).end(String(e?.message || e));
+  }
+});
+
 function findLatestInstallerExe() {
   try {
     const dir = path.join(__dirname, 'installer', 'Output');

@@ -2,7 +2,7 @@
 #define MyAppVersion "1.0.4"
 #define MyAppPublisher "Video Downloader"
 #define MyAppExeName "VideoDownloader.exe"
-#define MyUpdateFeedUrl "https://YOUR_DOMAIN/latest.json"
+#define MyUpdateFeedUrl "https://youtube-downloader-nine-xi.vercel.app/latest.json"
 
 [Setup]
 AppId={{6C3DAEA7-1D00-4F1A-9C8E-7F5A0DA50C84}
